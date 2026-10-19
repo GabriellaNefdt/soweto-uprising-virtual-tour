@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>16 June 1976: Walk in the Footsteps of the Soweto Uprising</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Fonts (system fallback used for accessibility) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header / Title -->
+    <header class="topbar">
+      <h1>16 June 1976: Walk in the Footsteps of the Soweto Uprising</h1>
+      <div class="controls">
+        <button id="sound-toggle" aria-pressed="false">Sound: Off</button>
+        <button id="accessibility-button">Accessibility</button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <main id="main-area">
+      <!-- Stage: Map -->
+      <section id="map-stage" class="stage active" aria-hidden="false">
+        <div id="map" aria-label="Map of South Africa"></div>
+        <div class="map-panel">
+          <h2>Welcome</h2>
+          <p class="intro">
+            This simulation helps learners explore the Soweto Uprising of 16 June 1976.
+            You'll begin at South Africa and zoom into Johannesburg and Soweto. Click
+            <strong>BEGIN THE JOURNEY</strong> when you are ready.
+          </p>
+          <button id="begin-button" class="primary">BEGIN THE JOURNEY</button>
+          <div class="map-caption">
+            <label><input type="checkbox" id="map-outline" checked> Show labels</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stage: School -->
+      <section id="school-stage" class="stage" aria-hidden="true">
+        <div class="scene-header">
+          <h2>Morris Isaacson High School — Before the March</h2>
+          <div class="stage-controls">
+            <button class="back-to-map small">Back to Map</button>
+            <div id="progress">Progress: <span id="progress-value">0%</span></div>
+          </div>
+        </div>
+        <div class="scene-content">
+          <div id="school-canvas-wrap">
+            <canvas id="school-canvas" width="900" height="480" aria-label="School scene"></canvas>
+            <div id="on-screen-controls" aria-hidden="false">
+              <button id="left-btn" class="move">◀</button>
+              <button id="up-btn" class="move">▲</button>
+              <button id="down-btn" class="move">▼</button>
+              <button id="right-btn" class="move">▶</button>
+            </div>
+          </div>
+          <aside class="info-panel" id="info-panel">
+            <div class="info-inner">
+              <h3 id="info-title">School Information</h3>
+              <div id="info-body"></div>
+              <div id="placards" class="placards"></div>
+              <div class="timeline" id="timeline"></div>
+              <div class="quiz" id="school-quiz"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Stage: Protest -->
+      <section id="protest-stage" class="stage" aria-hidden="true">
+        <div class="scene-header">
+          <h2>The Protest March — On the Streets of Soweto</h2>
+          <div class="stage-controls">
+            <button class="back-to-school small">Back to School</button>
+            <button id="pause-protest" class="small">Pause</button>
+            <div id="progress">Progress: <span id="progress-protest">33%</span></div>
+          </div>
+        </div>
+        <div class="scene-content">
+          <div id="protest-canvas-wrap">
+            <canvas id="protest-canvas" width="900" height="480" aria-label="Protest scene"></canvas>
+          </div>
+          <aside class="info-panel" id="protest-info">
+            <div class="info-inner">
+              <h3>On the march</h3>
+              <div id="protest-text"></div>
+              <div id="decision-activity"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Stage: Memorial -->
+      <section id="memorial-stage" class="stage" aria-hidden="true">
+        <div class="scene-header">
+          <h2>Hector Pieterson Memorial</h2>
+          <div class="stage-controls">
+            <button class="back-to-protest small">Back to Protest</button>
+            <div id="progress">Progress: <span id="progress-memorial">66%</span></div>
+          </div>
+        </div>
+        <div class="scene-content memorial-content">
+          <div class="memorial-left">
+            <img id="hector-photo" alt="Hector Pieterson photograph (sourced)" />
+            <p class="photo-credit" id="photo-credit"></p>
+            <button id="open-photo-activity" class="primary small">Source Analysis Activity</button>
+          </div>
+          <aside class="info-panel">
+            <div class="info-inner">
+              <h3>About Hector Pieterson</h3>
+              <div id="memorial-text"></div>
+              <div id="photo-activity" class="hidden"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Stage: Museum -->
+      <section id="museum-stage" class="stage" aria-hidden="true">
+        <div class="scene-header">
+          <h2>Digital Exhibits — Apartheid & Resistance</h2>
+          <div class="stage-controls">
+            <button class="back-to-memorial small">Back to Memorial</button>
+            <div id="progress">Progress: <span id="progress-museum">90%</span></div>
+          </div>
+        </div>
+        <div class="scene-content museum-content">
+          <div class="exhibits" id="exhibits"></div>
+          <aside class="info-panel">
+            <div class="info-inner">
+              <h3>Explore Exhibits</h3>
+              <div id="exhibit-body"></div>
+              <div id="final-assessment"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom nav -->
+    <nav class="bottombar" role="navigation" aria-label="Game controls">
+      <div class="left">
+        <button id="inventory-btn">Journal / Inventory</button>
+        <button id="objectives-btn">Objectives</button>
+      </div>
+      <div class="center">
+        <div id="stage-label">Map</div>
+      </div>
+      <div class="right">
+        <button id="help-btn">Help</button>
+        <button id="restart-btn">Restart</button>
+      </div>
+    </nav>
+
+    <!-- Modal / overlays -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true"></div>
+
+    <footer class="footer">
+      <p>Sources & credits: see the Sources section in the exhibits. This is an educational reconstruction.</p>
+    </footer>
+  </div>
+
+  <script src="data/history.js"></script>
+  <script src="data/quizzes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
